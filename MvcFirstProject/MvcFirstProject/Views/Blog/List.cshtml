@@ -1,0 +1,14 @@
+﻿@model IEnumerable<MvcFirstProject.Models.BlogModel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2 style="text-align:center">Ana Sayfa</h2>
+
+@Html.Partial("BlogList", Model)
+
+@section SideBar{
+    @Html.Partial("Search")
+    @{Html.RenderAction("CategoryList", "Category");}
+}

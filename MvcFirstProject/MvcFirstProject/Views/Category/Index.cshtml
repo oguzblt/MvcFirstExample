@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MvcFirstProject.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Kategori Listesi</h2>
+
+<p>
+    @Html.ActionLink("Yeni Kategori Ekle", "Create", null, new { @class = "btn btn-primary" })
+</p>
+@if (TempData["Category"] != null)
+{
+    var blog = (MvcFirstProject.Models.Category)TempData["Category"];
+    <div class="alert alert-success" role="alert">
+        <strong><span class="glyphicon glyphicon-ok"></span>@blog.CategoryName</strong> Güncellendi.
+    </div>
+}
+<table class="table table-bordered table-hover">
+    <tr style="background-color:darkorange">
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>Toplam Blog Sayısı</th>
+        <th>Crud</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @MvcFirstProject.Controllers.CategoryController.BlogCount(item.Id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
+            </td>
+        </tr>
+    }
+
+</table>

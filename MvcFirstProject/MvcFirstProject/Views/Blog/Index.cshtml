@@ -1,0 +1,98 @@
+﻿
+@model IEnumerable<MvcFirstProject.Models.Blog>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Blog Listesi</h2>
+<hr />
+<p>
+    @Html.ActionLink("Yeni Blog Ekle", "Create", null, new {@class="btn btn-primary"})
+</p>
+@if (TempData["Blog"] != null)
+{
+    var blog = (MvcFirstProject.Models.Blog)TempData["Blog"];
+    <div class="alert alert-success" role="alert">
+        <strong><span class="glyphicon glyphicon-ok"></span>@blog.BlogName</strong> Güncellendi.
+    </div>
+}
+<table class="table table-bordered table-hover">
+    <tr style="background-color:darkorange">
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BlogName)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Contents)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Statu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomePage)
+        </th>
+        <th style="width:170px">Crud</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BlogName)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Contents)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @if (item.Statu)
+                {
+                    <label class="label label-success">Onaylı</label>
+                }
+                else
+                {
+                    <label class="label label-warning">Onay Bekliyor</label>
+                }
+            </td>
+            <td>
+                @if (item.HomePage)
+                {
+                    <label class="label label-success">Onaylı</label>
+                }
+                else
+                {
+                    <label class="label label-warning">Onay Bekliyor</label>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
+            </td>
+        </tr>
+    }
+
+</table>
